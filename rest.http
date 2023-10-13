@@ -1,0 +1,16 @@
+GET http://localhost:3000
+
+#####register
+
+GET http://localhost:3000/auth/register
+
+#####login
+
+POST http://localhost:3000/auth/login
+
+#####Logout
+
+POST http://localhost:3000/auth/logout
+
+#####refresh-token
+POST http://localhost:3000/auth/refresh-token
