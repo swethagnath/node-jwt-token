@@ -11,17 +11,18 @@ const app = express()
  
 const PORT  = process.env.PORT || 3000
 
-app.get('/', async(req, res, next) => {
-    res.send("hello from express")
-})
+
 
 app.use(morgan('dev'))
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use('/auth', AuthRoute)  
 
 app.use(async (req, res, next) => {
     next(createError.NotFound())
 })
 
-app.use('/auth', AuthRoute)
+
 
 app.use((err,req, res, next) => {
     res.status(err.status || 500)
