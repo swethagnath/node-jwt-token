@@ -1,4 +1,5 @@
 GET http://localhost:3000
+Authorization: Bearer 
 
 #####register
 
@@ -6,13 +7,21 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email": "hellods@gmail.com",
+    "email": "sao09sddsds@gmail.com",
     "password": "12#13"
 }
 
 #####login
 
 POST http://localhost:3000/auth/login
+
+Content-Type: application/json
+
+{
+    "email": "09opsbn@gmail.com",
+    "password": "12#13"
+}
+
 
 #####Logout
 
