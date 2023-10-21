@@ -31,6 +31,31 @@ module.exports = {
 
             }
         })
-
+    },
+    signRefreshToken: (userId) => {
+        return new Promise((resolve, reject) => {
+            const payload = {
+                name: "yours truly",
+                userId
+            }
+            const secret = process.env.REFRESH_TOKEN_SECRET
+            const options = {
+                expiresIn: "1y"
+            }
+            JWT.sign(payload, secret, options, (err, token) => {
+                if(err) reject(createHttpError.InternalServerError())
+                resolve(token)
+            })
+        })
+    },
+    verifyRefreshToken: (refreshToken) => {
+        return new Promise((resolve, reject) => {
+            JWT.verify(refreshToken.split(" ")[1], process.env.REFRESH_TOKEN_SECRET, (err, payload) => {
+                if(err) return reject(createHttpError.Unauthorized())
+                const userId = payload
+                resolve(userId)
+            })
+        })
     }
+
 }

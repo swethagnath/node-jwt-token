@@ -7,7 +7,7 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email": "sao09sddsds@gmail.com",
+    "email": "09opsbn@gmail.com",
     "password": "12#13"
 }
 
@@ -29,3 +29,8 @@ POST http://localhost:3000/auth/logout
 
 #####refresh-token
 POST http://localhost:3000/auth/refresh-token
+
+Content-Type: application/json
+{
+    "refreshToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoieW91cnMgdHJ1bHkiLCJ1c2VySWQiOiI2NTMzYTg1MDFhN2MxMzFiMGU1MWFjYmEiLCJpYXQiOjE2OTc4ODQyNDAsImV4cCI6MTcyOTQ0MTg0MH0.lULVZk6bZVWgeaQtgn5DcxV0lNUXS7SQe5Tt4Qyi4AQ"
+}
