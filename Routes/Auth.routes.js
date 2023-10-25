@@ -4,6 +4,7 @@ const router = express.Router()
 const User = require("../Models/User.model")
 const {authSchema} = require('../helpers/validation_schema')
 const {signAccessToken, verifyAccessToken, signRefreshToken, verifyRefreshToken} = require('../helpers/jwt_helper')
+const client = require()
 
 router.post('/register', async(req, res, next) => {
    try{
@@ -52,10 +53,8 @@ router.post('/login', async(req, res, next) => {
 router.post('/refresh-token', async(req, res, next) => {
     try{
       const {refreshToken} = req.body
-      console.log(refreshToken, "refreshToken")
       if(!refreshToken) throw createHttpError.BadRequest()
       const userId = await verifyRefreshToken(refreshToken)
-      console.log(userId)
       const accessToken = await signAccessToken(userId)
       const newRefToken = await signRefreshToken(userId)
       res.send({accessToken, refreshToken:newRefToken})
@@ -65,7 +64,21 @@ router.post('/refresh-token', async(req, res, next) => {
 })
 
 router.delete('/logout', verifyAccessToken, async(req, res, next) => {
-    res.send("refresh route")
+    try{
+      const {refreshToken} = req.body
+      if(!refreshToken) throw createHttpError.BadRequest()
+      const userId = await verifyRefreshToken(refreshToken)
+      client.DEL(userId, (err, val) => {
+        if(err){
+          console.log(err.message)
+          throw createHttpError.InternalServerError()
+        }
+        console.log(val)
+        res.send({message: "logged out successfully"})
+      })
+    }catch(error){
+      next(error)
+    }
 })
 
 module.exports = router
